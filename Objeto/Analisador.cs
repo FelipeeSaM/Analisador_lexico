@@ -44,7 +44,7 @@ namespace Analisador_lexico.Objeto {
 
             if (validaExpressaoMatematica >= 1) {
                 Console.WriteLine("Possível expressão matemática");
-                Environment.Exit(1);
+                Console.ReadKey();
             } else {
                 AnalisarCaracteresMinusculos(tokenReservado);
             }
@@ -71,7 +71,7 @@ namespace Analisador_lexico.Objeto {
 
             if(tokenReservado.Length != tokensAchados.Length) {
                 Console.WriteLine("Entrada inválida");
-                Environment.Exit(1);
+                Console.ReadKey();
             } else {
                 Console.WriteLine("Entrada válida");
             }
