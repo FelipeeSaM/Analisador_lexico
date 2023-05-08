@@ -7,7 +7,6 @@ namespace Analisador_lexico {
             Analisador palavra = new Analisador();
             Console.Write("Digite o negócio: ");
             palavra.AnalisarPalavra(Console.ReadLine());
-            //Console.WriteLine(palavra.AnalisarPalavra("qãÃru"));
             Console.ReadKey();
         }
     }

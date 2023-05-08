@@ -5,7 +5,6 @@ D:\repos\Compiladores\Analisador_lexico\bin\Debug\net5.0\Analisador_lexico.runti
 D:\repos\Compiladores\Analisador_lexico\bin\Debug\net5.0\Analisador_lexico.dll
 D:\repos\Compiladores\Analisador_lexico\bin\Debug\net5.0\ref\Analisador_lexico.dll
 D:\repos\Compiladores\Analisador_lexico\bin\Debug\net5.0\Analisador_lexico.pdb
-D:\repos\Compiladores\Analisador_lexico\obj\Debug\net5.0\Analisador_lexico.csproj.AssemblyReference.cache
 D:\repos\Compiladores\Analisador_lexico\obj\Debug\net5.0\Analisador_lexico.GeneratedMSBuildEditorConfig.editorconfig
 D:\repos\Compiladores\Analisador_lexico\obj\Debug\net5.0\Analisador_lexico.AssemblyInfoInputs.cache
 D:\repos\Compiladores\Analisador_lexico\obj\Debug\net5.0\Analisador_lexico.AssemblyInfo.cs
