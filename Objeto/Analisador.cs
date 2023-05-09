@@ -49,7 +49,7 @@ namespace Analisador_lexico.Objeto {
                 AnalisarCaracteresMinusculos(tokenReservado);
             }
         }
-
+         
         private int AnalisarTokensEspeciais(string tokenReservado) {
             for (int i = 0; i < tokensAtomicosLetras.Count; i++) {
                 for (int j = 0; j < tokensAtomicosCaracteresEspeciais.Count; j++) {
