@@ -33,17 +33,28 @@ namespace Analisador_lexico.Objeto {
 
 
         public string AnalisarPalavra(string token) {
-            //Console.WriteLine($"A palavra foi {token}\n");
+            ComecaComNumeros(token);
             MisturarCaracteresEanalisa(token);
             return "";
 
+        }
+
+        private void ComecaComNumeros(string tokenReservado) {
+            if(char.IsDigit(tokenReservado.Substring(0, 1), 0)) {
+                Console.WriteLine("Palavra reservada pelo sistema!");
+                Console.ReadKey();
+                Environment.Exit(1);
+            }
         }
 
         private void MisturarCaracteresEanalisa(string tokenReservado) {
             int validaExpressaoMatematica = AnalisarTokensEspeciais(tokenReservado);
 
             if (validaExpressaoMatematica >= 1) {
-                Console.WriteLine("Possível expressão matemática");
+                Console.WriteLine("Expressão matemática!");
+                Console.ReadKey();
+            } else if (validaExpressaoMatematica > 10) {
+                Console.WriteLine("Permitido no máximo 10 tokens atômicos.");
                 Console.ReadKey();
             } else {
                 AnalisarCaracteresMinusculos(tokenReservado);
@@ -67,13 +78,12 @@ namespace Analisador_lexico.Objeto {
                 tokensAchados += $"{match.Value}";
             }
 
-            //Console.Write($"Achei: {tokensAchados} \n");
-
             if(tokenReservado.Length != tokensAchados.Length) {
                 Console.WriteLine("Entrada inválida");
                 Console.ReadKey();
             } else {
                 Console.WriteLine("Entrada válida");
+                Console.ReadKey();
             }
         }
 
