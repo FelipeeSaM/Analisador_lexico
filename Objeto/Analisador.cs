@@ -28,7 +28,8 @@ namespace Analisador_lexico.Objeto {
         private List<string> tokensAtomicosLetras = new List<string>(new string[] {"x", "y", "z", "w", "t" });
         private List<string> tokensAtomicosCaracteresEspeciais = new List<string>(new string[] {"+", "-", "*", "/", ",", "@", "#", "!", "(", ")", "[", "]", "{", "}" });
         private List<string> testarPrimeiroCaractere = new List<string>(new string[] { "j", "w", "k", "y", "ç", "h", "q", "J", "W", "K", "Y", "Ç", "H", "Q" });
-        private List<string> vogais = new List<string>(new string[] { "a", "e", "i", "o", "u", "A", "E", "I", "O", "U" });
+        private string vogais = @"[b-df-hj-np-tv-zB-DF-HJ-NP-TV-Z][aeiouAEIOU]";
+
 
         private int contador = 0;
         #endregion
@@ -38,9 +39,18 @@ namespace Analisador_lexico.Objeto {
 
         public string AnalisarPalavra(string token) {
             TestaPrimeiroCaractere(token);
-            MisturarCaracteresEanalisa(token);
+            TestarVogaisEconsoantes(token);
+            TestaNumeroDeTokens(token);
             return "";
 
+        }
+
+        private void TestarVogaisEconsoantes(string tokenReservado) {
+            bool testaConsoanteEvogal = Regex.IsMatch(tokenReservado, vogais);
+            if(!testaConsoanteEvogal) {
+                Console.WriteLine("A entrada deve conter uma consoante seguida de uma vogal.");
+                Console.ReadKey();
+            }
         }
 
         private void TestaPrimeiroCaractere(string tokenReservado) {
@@ -55,13 +65,10 @@ namespace Analisador_lexico.Objeto {
             }
         }
 
-        private void MisturarCaracteresEanalisa(string tokenReservado) {
+        private void TestaNumeroDeTokens(string tokenReservado) {
             int validaExpressaoMatematica = AnalisarTokensEspeciais(tokenReservado);
 
-            if (validaExpressaoMatematica >= 1) {
-                Console.WriteLine("Expressão matemática!");
-                Console.ReadKey();
-            } else if (validaExpressaoMatematica > 10) {
+            if (validaExpressaoMatematica > 10) {
                 Console.WriteLine("Permitido no máximo 10 tokens atômicos.");
                 Console.ReadKey();
             } else {
