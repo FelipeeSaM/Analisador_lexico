@@ -20,12 +20,14 @@ namespace Analisador_lexico.Objeto {
         #endregion
 
         #region parte_1_exercicio
-        private Regex caracteresPermitidos = new Regex("[a-su-vA-SU-V0-9â-ýÂ-Ý]");
+        private Regex caracteresPermitidos2 = new Regex("[a-su-vA-SU-V0-9â-ýÂ-Ý]");
+        private Regex caracteresPermitidos = new Regex(@"^[a-zA-Z0-9]+$");
         #endregion
 
         #region parte_2_exercicio
         private List<string> tokensAtomicosLetras = new List<string>(new string[] {"x", "y", "z", "w", "t" });
         private List<string> tokensAtomicosCaracteresEspeciais = new List<string>(new string[] {"+", "-", "*", "/", ",", "@", "#", "!", "(", ")", "[", "]", "{", "}" });
+        private List<string> testarPrimeiroCaractere = new List<string>(new string[] { "j", "w", "k", "y", "ç", "h", "q", "J", "W", "K", "Y", "Ç", "H", "Q" });
         private int contador = 0;
         #endregion
 
@@ -40,10 +42,14 @@ namespace Analisador_lexico.Objeto {
         }
 
         private void ComecaComNumeros(string tokenReservado) {
-            if(char.IsDigit(tokenReservado.Substring(0, 1), 0)) {
-                Console.WriteLine("Palavra reservada pelo sistema!");
-                Console.ReadKey();
-                Environment.Exit(1);
+            foreach(string primeiroCaractere in testarPrimeiroCaractere) {
+                if (tokenReservado.Substring(0, 1).Contains(primeiroCaractere) ||
+                    tokenReservado.Substring(0, 1).Contains("z")               ||
+                    tokenReservado.Substring(0, 1).Contains("x")) {
+                    Console.WriteLine("Palavra reservada pelo sistema!");
+                    Console.ReadKey();
+                    Environment.Exit(1);
+                }
             }
         }
 
