@@ -28,6 +28,8 @@ namespace Analisador_lexico.Objeto {
         private List<string> tokensAtomicosLetras = new List<string>(new string[] {"x", "y", "z", "w", "t" });
         private List<string> tokensAtomicosCaracteresEspeciais = new List<string>(new string[] {"+", "-", "*", "/", ",", "@", "#", "!", "(", ")", "[", "]", "{", "}" });
         private List<string> testarPrimeiroCaractere = new List<string>(new string[] { "j", "w", "k", "y", "ç", "h", "q", "J", "W", "K", "Y", "Ç", "H", "Q" });
+        private List<string> vogais = new List<string>(new string[] { "a", "e", "i", "o", "u", "A", "E", "I", "O", "U" });
+
         private int contador = 0;
         #endregion
 
@@ -35,13 +37,13 @@ namespace Analisador_lexico.Objeto {
 
 
         public string AnalisarPalavra(string token) {
-            ComecaComNumeros(token);
+            TestaPrimeiroCaractere(token);
             MisturarCaracteresEanalisa(token);
             return "";
 
         }
 
-        private void ComecaComNumeros(string tokenReservado) {
+        private void TestaPrimeiroCaractere(string tokenReservado) {
             foreach(string primeiroCaractere in testarPrimeiroCaractere) {
                 if (tokenReservado.Substring(0, 1).Contains(primeiroCaractere) ||
                     tokenReservado.Substring(0, 1).Contains("z")               ||
