@@ -17,7 +17,8 @@ namespace Analisador_lexico {
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write("Digite o negócio: ");
                 palavra.AnalisarPalavra(Console.ReadLine());
-                //Console.ReadKey();
+                Console.ReadKey();
+                Console.Clear();
             }
         }
 
