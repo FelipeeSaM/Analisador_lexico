@@ -19,62 +19,67 @@ namespace Analisador_lexico.Objeto {
         }
         #endregion
 
-        #region parte_1_exercicio
-        private Regex caracteresPermitidos = new Regex("[a-su-vA-SU-V0-9â-ýÂ-Ý]");
-        #endregion
+        private char[] caracteresNaoPermitidos = { 'j', 'w', 'k', 'y', 'ç', 'h', 'q', 'J', 'W', 'K', 'Y', 'Ç', 'H', 'Q' };
+        private char[] caracteresEspeciaisNaoPermitidos = { '/', '(', ')', '&', '%', '$', '#', '@', '!' };
+        private bool valido = true;
 
-        #region parte_2_exercicio
-        private List<string> tokensAtomicosLetras = new List<string>(new string[] {"x", "y", "z", "w", "t" });
-        private List<string> tokensAtomicosCaracteresEspeciais = new List<string>(new string[] {"+", "-", "*", "/", ",", "@", "#", "!", "(", ")", "[", "]", "{", "}" });
-        private int contador = 0;
-        #endregion
-
-        private string tokensAchados = "";
-
-
-        public string AnalisarPalavra(string token) {
-            //Console.WriteLine($"A palavra foi {token}\n");
-            MisturarCaracteresEanalisa(token);
-            return "";
-
+        public void AnalisarPalavra(string token) {
+            token = token.Substring(0, Math.Min(10, token.Length));
+            PalavraDoSistema(token);
+            valido = AnalisarCaracteresPermitidos(token) && ComecaComLetraValida(token) && AlternaVogalEconsoante(token) && NaoTemDigrafoConsoante(token) && NaoContemNumeroNoMeio(token);
+            EhValidoOuNao(valido);
         }
-
-        private void MisturarCaracteresEanalisa(string tokenReservado) {
-            int validaExpressaoMatematica = AnalisarTokensEspeciais(tokenReservado);
-
-            if (validaExpressaoMatematica >= 1) {
-                Console.WriteLine("Possível expressão matemática");
-                Console.ReadKey();
-            } else {
-                AnalisarCaracteresMinusculos(tokenReservado);
+        private void PalavraDoSistema(string tokenReservado) {
+            if(tokenReservado.Substring(0, 1).Contains("z") || tokenReservado.Substring(0, 1).Contains("x")) {
+                MudarCorConsole(ConsoleColor.Magenta);
+                Console.WriteLine("Palavra reservada do sistema. O sistema é foda, parsero.");
             }
         }
-         
-        private int AnalisarTokensEspeciais(string tokenReservado) {
-            for (int i = 0; i < tokensAtomicosLetras.Count; i++) {
-                for (int j = 0; j < tokensAtomicosCaracteresEspeciais.Count; j++) {
-                    if (tokenReservado.Contains((tokensAtomicosLetras[i] + tokensAtomicosCaracteresEspeciais[j]))) {
-                        contador++;
-                    }
-                }
+
+        private bool AnalisarCaracteresPermitidos(string tokenReservado) {
+            if (tokenReservado.Any(c => caracteresNaoPermitidos.Contains(c) || caracteresEspeciaisNaoPermitidos.Contains(c))) {
+                valido = false;
             }
-            return contador;
+            return valido;
         }
 
-        private void AnalisarCaracteresMinusculos(string tokenReservado) {
-            MatchCollection encontro = caracteresPermitidos.Matches(tokenReservado);
-            foreach(Match match in encontro) {
-                tokensAchados += $"{match.Value}";
+        private bool ComecaComLetraValida(string tokenReservado) {
+            if(tokenReservado.Substring(0, 1).Any(c => caracteresNaoPermitidos.Contains(c))) {
+                valido = false;
             }
+            return valido;
+        }
 
-            //Console.Write($"Achei: {tokensAchados} \n");
+        private bool AlternaVogalEconsoante(string tokenReservado) {
+            bool alternanciaCorreta = Regex.IsMatch(tokenReservado, @"(?:(?:[aeiouAEIOU][^aeiouAEIOU])+[aeiouAEIOU])");
+            return alternanciaCorreta;
+        }
 
-            if(tokenReservado.Length != tokensAchados.Length) {
-                Console.WriteLine("Entrada inválida");
-                Console.ReadKey();
-            } else {
+        private bool NaoTemDigrafoConsoante(string tokenReservado) {
+            bool alternanciaCorreta = !Regex.IsMatch(tokenReservado, @"[^aeiouAEIOU]{2}");
+            return alternanciaCorreta;
+        }
+
+        private bool NaoContemNumeroNoMeio(string tokenReservado) {
+            if (tokenReservado.Substring(0, tokenReservado.Length-1).Any(c => Char.IsDigit(c))) {
+                valido = false;
+            }
+            return valido;
+        }
+
+
+        private void EhValidoOuNao(bool permitido) {
+            if(permitido) {
+                MudarCorConsole(ConsoleColor.Green);
                 Console.WriteLine("Entrada válida");
+            } else {
+                MudarCorConsole(ConsoleColor.Red);
+                Console.WriteLine("Entrada inválida");
             }
+        }
+
+        private void MudarCorConsole(ConsoleColor cor) {
+            Console.ForegroundColor = cor;
         }
 
     }
