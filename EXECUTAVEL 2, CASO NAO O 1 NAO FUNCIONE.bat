@@ -1,1 +1,0 @@
-start .\bin\Debug\net5.0\Analisador_lexico.exe
