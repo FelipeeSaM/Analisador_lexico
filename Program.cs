@@ -24,7 +24,7 @@ namespace Analisador_lexico {
 
         public class Analisador {
             #region kkkkkkk
-            public string cadeia { get; set; }
+            public string cadeia { get; private set; }
 
             public Analisador() {
 
