@@ -56,14 +56,14 @@ namespace Analisador_lexico {
                 if (tokenReservado.Any(c => caracteresNaoPermitidos.Contains(c) || caracteresEspeciaisNaoPermitidos.Contains(c))) {
                     valido = false;
                 }
-                return valido;
+                return valido = true;
             }
 
             private bool ComecaComLetraValida(string tokenReservado) {
                 if (tokenReservado.Substring(0, 1).Any(c => caracteresNaoPermitidos.Contains(c))) {
                     valido = false;
                 }
-                return valido;
+                return valido = true;
             }
 
             private bool AlternaVogalEconsoante(string tokenReservado) {
@@ -80,7 +80,7 @@ namespace Analisador_lexico {
                 if (tokenReservado.Substring(0, tokenReservado.Length - 1).Any(c => Char.IsDigit(c))) {
                     valido = false;
                 }
-                return valido;
+                return valido = true;
             }
 
 
